@@ -1,0 +1,24 @@
+class Solution(object):
+    def findRadius(self, houses, heaters):
+        """
+        :type houses: List[int]
+        :type heaters: List[int]
+        :rtype: int
+        """
+        sorted_heaters = sorted(heaters)
+        max_radius = 0
+        for house in houses:
+            closest_heater = self.find_closest_heater(house, sorted_heaters)
+            max_radius = max(max_radius, closest_heater)
+        return max_radius
+        
+    def find_closest_heater(self, house, sorted_heaters):
+        left, right = 0, len(sorted_heaters) - 1
+        while left + 1 < right:
+            mid = (left + right) // 2
+            if sorted_heaters[mid] < house:
+                left = mid
+            else: right = mid
+        
+        min_left_right =  min(abs(sorted_heaters[left] - house), abs(sorted_heaters[right] - house))
+        return min_left_right
