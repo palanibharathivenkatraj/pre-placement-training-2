@@ -1,0 +1,38 @@
+class Solution(object):
+    def wiggleSort(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: None Do not return anything, modify nums in-place instead.
+        """
+        c = Counter(nums)
+        k = 0
+        
+        n = len(nums)
+
+        i = 5000
+        odd = 1
+        even = 0
+        while i >= 0:
+            while odd < n and c[i] != 0:
+                nums[odd] = i
+                c[i] -= 1
+                odd += 2
+            
+            if odd >= n:
+                break
+
+            i -= 1
+        
+        while i >= 0:
+            while even < n and c[i] != 0:
+                nums[even] = i
+                c[i] -= 1
+                even += 2
+            
+            if even >= n:
+                break
+
+            i -= 1
+
+
+        return nums
