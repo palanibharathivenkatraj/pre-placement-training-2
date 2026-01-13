@@ -1,0 +1,16 @@
+class Solution(object):
+    def majorityElement(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        srav = int(len(nums) / 3)
+        count_nums = defaultdict(list)
+        answer=[]
+        for i in nums:
+            count_nums[i].append(i)
+        for j in count_nums:
+            if len(count_nums[j]) > srav:
+                answer.append(j)
+        return answer
+        
