@@ -1,0 +1,16 @@
+class Solution(object):
+	def complexNumberMultiply(self, a, b):
+		"""
+		:type a: str
+		:type b: str
+		:rtype: str
+		"""
+
+		a_re, a_im = a.split('+')
+		b_re, b_im = b.split('+')
+		a_im, b_im = a_im[:-1], b_im[:-1]
+
+		res_re = int(a_re)*int(b_re)-int(a_im)*int(b_im)
+		res_im = int(a_re)*int(b_im)+int(a_im)*int(b_re)
+
+		return str(res_re)+'+'+str(res_im)+'i'
