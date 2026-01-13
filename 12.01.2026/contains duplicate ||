@@ -1,0 +1,27 @@
+class Solution(object):
+    def containsNearbyAlmostDuplicate(self, nums, indexDiff, valueDiff):
+        """
+        :type nums: List[int]
+        :type indexDiff: int
+        :type valueDiff: int
+        :rtype: bool
+        """
+        if indexDiff <= 0 or valueDiff < 0:
+            return False
+        
+        window = [] 
+
+        for idx, val in enumerate(nums):
+            position = bisect.bisect_left(window, val)
+            if position < len(window) and abs(window[position] - val) <= valueDiff:
+                return True
+            if position > 0 and abs(val - window[position - 1]) <= valueDiff:
+                return True
+            bisect.insort(window, val)
+            if idx >= indexDiff:
+                oldVal = nums[idx-indexDiff]
+                remove = bisect.bisect_left(window, oldVal)
+                if remove < len(window) and window[remove] == oldVal:
+                    window.pop(remove)
+            
+        return False
