@@ -1,0 +1,10 @@
+class Solution(object):
+    def arrayPairSum(self, nums):
+        nums.sort()
+        s=0
+        c=0
+        r=int(len(nums)/2)
+        for i in range(r):
+            s+=min(nums[c],nums[c+1])
+            c+=2
+        return s
