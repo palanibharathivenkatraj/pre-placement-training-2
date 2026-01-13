@@ -1,0 +1,35 @@
+class Solution(object):
+    def findMaximizedCapital(self, k, w, profits, capital):
+        """
+        :type k: int
+        :type w: int
+        :type profits: List[int]
+        :type capital: List[int]
+        :rtype: int
+        """
+        balance = w
+        projects_allowed = k
+
+        projects = list(zip(capital, profits))
+        projects.sort()
+
+        i = 0
+        picked = 0
+        max_heap = []
+        while picked < projects_allowed:
+            while i < len(projects):
+                capex, profit = projects[i][0], projects[i][1]
+                if balance >= capex:
+                    heapq.heappush(max_heap, (-profit, -capex)) # can afford
+                    i += 1
+                else:
+                    break
+
+            if max_heap:
+                max_project = heapq.heappop(max_heap)
+                balance += -max_project[0] # profit
+                picked += 1
+            else:
+                break # couldn't afford anything
+
+        return balance
