@@ -1,0 +1,50 @@
+class MedianFinder(object):
+    import heapq
+    def __init__(self):
+        self.hmax, self.hmin = [], []
+
+    def addNum(self, num):
+        """
+        :type num: int
+        :rtype: None
+        """
+        if self.hmin and self.hmax:
+            if len(self.hmin)>len(self.hmax):
+                if self.hmin[0] < num:
+                    n = heapq.heappop(self.hmin)
+                    heapq.heappush(self.hmax, -n)
+                    heapq.heappush(self.hmin, num)
+                else:
+                    heapq.heappush(self.hmax, -num)
+            else:
+                if -self.hmax[0] < num:
+                    heapq.heappush(self.hmin, num)
+                else:
+                    n = -heapq.heappop(self.hmax)
+                    heapq.heappush(self.hmax, -num)
+                    heapq.heappush(self.hmin, n)
+        elif self.hmin:
+            if self.hmin[0]<num:
+                n = heapq.heappop(self.hmin)
+                heapq.heappush(self.hmax, -n)
+                heapq.heappush(self.hmin, num)
+            else:
+                heapq.heappush(self.hmax, -num)
+        elif len(self.hmax) == len(self.hmin) == 0:
+            heapq.heappush(self.hmin, num)
+
+
+
+
+    def findMedian(self):
+        """
+        :rtype: float
+        """
+        if self.hmin and self.hmax:
+            if len(self.hmin) == len(self.hmax):
+                return (float(self.hmin[0])-float(self.hmax[0]))/2
+            else:
+                return self.hmin[0]
+
+        elif self.hmin:
+            return self.hmin[0]
