@@ -1,0 +1,10 @@
+class Solution(object):
+    def thirdMax(self, nums):
+        array = list(sorted(set(nums), reverse=True))
+        if len(array) < 3:
+            return array[0]
+        return array[2]
+
+
+obj = Solution()
+print(obj.thirdMax([5, 6, 3, 8, 1]))
